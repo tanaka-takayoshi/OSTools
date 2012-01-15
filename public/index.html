@@ -1,0 +1,55 @@
+<html lang="ja"> 
+  <head>
+    <script type='text/javascript' src='./knockout-2.0.0.debug.js'></script>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+    <title>コマンド実行ツール</title> 
+  </head> 
+<body> 
+<p>作業ディレクトリ: <input data-bind="value: workingDirectory" /></p>
+<p>実行するコマンド: <input data-bind="value: command" /></p>
+<p>実行するコマンド, <span data-bind="text: fullName"> </span></p>
+<button data-bind='click: executed'>実行</button>
+<p>
+  <div id="dbs">実行結果</div><p>
+  <div id="resultArea" style="color:green;background-color:black">
+    <pre data-bind="text: result"/>
+  </div>
+</p>
+<script type="text/javascript"> 
+<!-- 
+// ViewModelの定義
+var ViewModel = function(workingDirectory, command) {
+    this.workingDirectory = ko.observable(workingDirectory);
+    this.command = ko.observable(command);
+	this.result = ko.observable("");
+    
+	//他のプロパティに依存するプロパティの定義
+    this.fullName = ko.computed(function() {
+        return this.command() + ", at " + this.workingDirectory();
+    }, this);
+	
+	this.executed = function() {
+	    var self = this;
+        var client = new XMLHttpRequest();
+		client.onreadystatechange = function () {
+		    if(client.readyState === 4) {
+                if(client.status === 200) {
+				    self.result(client.responseText);
+                }
+            }
+		};
+		var url = location.origin + "/command?wd=" + 
+			encodeURIComponent(self.workingDirectory())
+			+ "&cmd=" + encodeURIComponent(self.command());
+		console.log(url);
+		client.open("GET", url);
+		client.send();
+    };
+	
+};
+// ViewModelのバインディング
+ko.applyBindings(new ViewModel("/", "ls -l"));
+--> 
+</script> 
+</body> 
+</html>
