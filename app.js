@@ -13,7 +13,6 @@ app.get('/', function(req, res){
 
 //コマンド実行のリクエストを捌く
 app.get("/command", function(req, res){
-  console.log('command');
   var cmdstr;
 
   var util = require('util'),

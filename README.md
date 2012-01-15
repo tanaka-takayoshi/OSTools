@@ -3,6 +3,6 @@ This script uses [knockout.js](http://knockoutjs.com/).
 
 For more details, see
 
- * [My blog entru](http://techblog.hilife-jp.info/2012/01/nodejs-knockoutjs-oscloudfoundry.html) in Japanese
+ * [My blog entry](http://techblog.hilife-jp.info/2012/01/nodejs-knockoutjs-oscloudfoundry.html) in Japanese
  
  License: MIT [http://www.opensource.org/licenses/mit-license.php](http://www.opensource.org/licenses/mit-license.php)
